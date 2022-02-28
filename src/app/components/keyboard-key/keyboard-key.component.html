@@ -1,0 +1,7 @@
+<button 
+    [textContent]=[text] 
+    [id]=[id]
+    (click)="onClick()"
+    [ngClass]="index === 11 ? 'buttonToMiddle' :
+    (index === 20 || index === 28 ? 'buttonBigger' : '')">
+</button>

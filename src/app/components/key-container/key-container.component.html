@@ -1,1 +1,9 @@
-<div class="key-container"></div>
+<div class="key-container">
+    <app-keyboard-key 
+    *ngFor="let key of keys; index as i"
+    [text]="key"
+    [id]="key"
+    [index]="i+1"
+    (btnClick)="handleClick(key)">
+    </app-keyboard-key>    
+</div>
