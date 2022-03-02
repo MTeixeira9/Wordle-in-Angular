@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
 
 @Component({
@@ -38,6 +38,7 @@ export class KeyContainerComponent implements OnInit {
       'M',
       '«',
   ];
+  @Output() checkRowGuess = new EventEmitter<string>();
 
   constructor(private uiService: UiService) { }
 
@@ -51,6 +52,7 @@ export class KeyContainerComponent implements OnInit {
     }
 
     if (letter === 'ENTER') {
+      this.checkRow();
         return;
     }
 
@@ -67,8 +69,8 @@ export class KeyContainerComponent implements OnInit {
       if (tile) {
         tile.textContent = letter;
         tile.setAttribute('data', letter);
-        //this.uiService.setGuess(letter);
-        this.uiService.increaseTile();
+        this.uiService.setGuess(letter);
+        //this.uiService.increaseTile();
       }
     }
   }
@@ -78,7 +80,7 @@ export class KeyContainerComponent implements OnInit {
     const currentRow = this.uiService.currentRow;
 
     if (currentTile > 0) {
-      this.uiService.decreaseTile();
+      this.uiService.removeGuess();
       currentTile = this.uiService.currentTile;
       const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
 
@@ -87,6 +89,14 @@ export class KeyContainerComponent implements OnInit {
         tile.setAttribute('data', '');
         //this.uiService.setGuess('');
       }
+    }
+  }
+
+  checkRow() {
+    const guess = this.uiService.currentGuess.join('');
+
+    if (this.uiService.currentTile === 5) {
+      this.checkRowGuess.emit(guess);
     }
   }
 

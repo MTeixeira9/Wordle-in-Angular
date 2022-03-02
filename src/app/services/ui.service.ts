@@ -8,22 +8,20 @@ export class UiService {
   
   currentRow:number = 0;
   currentTile:number = 0;
-  private lastGuessLetter!:string;
   private subject = new Subject<any>();
+  guesses:string[][] = [];
+  currentGuess:string[] = [];
 
   constructor() { }
 
-  increaseTile() {
-    this.currentTile++;
-  }
-
-  decreaseTile() {
+  removeGuess() {
+    this.currentGuess.pop();
     this.currentTile--;
   }
 
   setGuess(letter:string) {
-    this.lastGuessLetter = letter;
-    this.subject.next(this.lastGuessLetter);
+    this.currentGuess.push(letter);
+    this.currentTile++;
   }
 
   onChangeGuessRow(): Observable<any> {

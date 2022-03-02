@@ -12,4 +12,15 @@ export class MessageContainerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showMessage(message:string) {
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;    
+    const msgBox = document.querySelector('.message-container');
+
+    if (msgBox) {
+      msgBox.append(messageElement);
+      setTimeout(() => msgBox.removeChild(messageElement), 2000);
+    }
+  }
+
 }

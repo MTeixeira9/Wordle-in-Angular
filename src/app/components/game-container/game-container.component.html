@@ -2,5 +2,7 @@
     <app-title-container></app-title-container>
     <app-message-container></app-message-container>
     <app-tile-container></app-tile-container>
-    <app-key-container></app-key-container>    
+    <app-key-container
+        (checkRowGuess)="verifyGuess($event)">
+    </app-key-container>    
 </div>

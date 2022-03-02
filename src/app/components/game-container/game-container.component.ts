@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MessageContainerComponent } from '../message-container/message-container.component';
 
 @Component({
   selector: 'app-game-container',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameContainerComponent implements OnInit {
 
+  @ViewChild(MessageContainerComponent)
+  messageContainer!: MessageContainerComponent;
+  wordle:string = "SUPER";
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  verifyGuess($event:string) {
+    if (this.wordle === $event) {
+      this.messageContainer.showMessage('Magnificient!');
+    }
   }
 
 }
