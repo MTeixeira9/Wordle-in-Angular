@@ -2,3 +2,7 @@
     width: 330px;
     margin-bottom: 30px;
 }
+
+.tile-container div {
+    display: flex;
+}

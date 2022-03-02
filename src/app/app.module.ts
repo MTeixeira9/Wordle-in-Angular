@@ -9,6 +9,7 @@ import { TileContainerComponent } from './components/tile-container/tile-contain
 import { KeyContainerComponent } from './components/key-container/key-container.component';
 import { TitleContainerComponent } from './components/title-container/title-container.component';
 import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.component';
+import { TileElementComponent } from './components/tile-element/tile-element.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.com
     TileContainerComponent,
     KeyContainerComponent,
     TitleContainerComponent,
-    KeyboardKeyComponent
+    KeyboardKeyComponent,
+    TileElementComponent
   ],
   imports: [
     BrowserModule,

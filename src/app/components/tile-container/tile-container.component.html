@@ -1,1 +1,10 @@
-<div class="tile-container"></div>
+<div class="tile-container">
+    <div 
+        *ngFor="let guessRow of guessRows; index as guessRowIndex"
+        id="{{'guessRow-'+guessRowIndex}}">
+        <app-tile-element
+        *ngFor="let guess of guessRow; index as guessIndex"
+            [id]="'guessRow-'+guessRowIndex+'-tile-'+guessIndex">
+        </app-tile-element>
+    </div>    
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-key-container',
@@ -36,15 +37,39 @@ export class KeyContainerComponent implements OnInit {
       'N',
       'M',
       '«',
-  ]
+  ];
 
-  constructor() { }
+  constructor(private uiService: UiService) { }
 
   ngOnInit(): void {
   }
 
-  handleClick(key:string) {
-    console.log(key, 'clicked');
+  handleClick(letter:string) {
+    if (letter === '«') {
+      return;
+    }
+
+    if (letter === 'ENTER') {
+        return;
+    }
+
+    this.addLetter(letter);
+  }
+
+  addLetter(letter:string) {
+    const currentTile = this.uiService.currentTile;
+    const currentRow = this.uiService.currentRow;
+
+    if (currentTile < 5 && currentRow < 6) {
+      const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
+
+      if (tile) {
+        tile.textContent = letter;
+        tile.setAttribute('data', letter);
+        //this.uiService.setGuess(letter);
+        this.uiService.increaseTile();
+      }
+    }
   }
 
 }
