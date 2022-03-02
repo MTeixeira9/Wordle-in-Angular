@@ -17,6 +17,10 @@ export class UiService {
     this.currentTile++;
   }
 
+  decreaseTile() {
+    this.currentTile--;
+  }
+
   setGuess(letter:string) {
     this.lastGuessLetter = letter;
     this.subject.next(this.lastGuessLetter);

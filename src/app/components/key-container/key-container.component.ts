@@ -46,6 +46,7 @@ export class KeyContainerComponent implements OnInit {
 
   handleClick(letter:string) {
     if (letter === '«') {
+      this.deleteLetter();
       return;
     }
 
@@ -68,6 +69,23 @@ export class KeyContainerComponent implements OnInit {
         tile.setAttribute('data', letter);
         //this.uiService.setGuess(letter);
         this.uiService.increaseTile();
+      }
+    }
+  }
+
+  deleteLetter() {
+    let currentTile = this.uiService.currentTile;
+    const currentRow = this.uiService.currentRow;
+
+    if (currentTile > 0) {
+      this.uiService.decreaseTile();
+      currentTile = this.uiService.currentTile;
+      const tile = document.getElementById('guessRow-' + currentRow + '-tile-' + currentTile);
+
+      if (tile) {
+        tile.textContent = '';
+        tile.setAttribute('data', '');
+        //this.uiService.setGuess('');
       }
     }
   }
