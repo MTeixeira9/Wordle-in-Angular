@@ -53,7 +53,7 @@ export class KeyContainerComponent implements OnInit {
 
     if (letter === 'ENTER') {
       this.checkRow();
-        return;
+      return;
     }
 
     this.addLetter(letter);
@@ -70,7 +70,6 @@ export class KeyContainerComponent implements OnInit {
         tile.textContent = letter;
         tile.setAttribute('data', letter);
         this.uiService.setGuess(letter);
-        //this.uiService.increaseTile();
       }
     }
   }
@@ -87,17 +86,13 @@ export class KeyContainerComponent implements OnInit {
       if (tile) {
         tile.textContent = '';
         tile.setAttribute('data', '');
-        //this.uiService.setGuess('');
       }
     }
   }
 
   checkRow() {
     const guess = this.uiService.currentGuess.join('');
-
-    if (this.uiService.currentTile === 5) {
-      this.checkRowGuess.emit(guess);
-    }
+    this.checkRowGuess.emit(guess);
   }
 
 }

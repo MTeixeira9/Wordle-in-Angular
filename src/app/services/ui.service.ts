@@ -24,6 +24,13 @@ export class UiService {
     this.currentTile++;
   }
 
+  newGuess() {
+    this.currentRow++;
+    this.currentTile = 0;
+    this.guesses.push(this.currentGuess);
+    this.currentGuess = [];
+  }
+
   onChangeGuessRow(): Observable<any> {
     return this.subject.asObservable();
   }

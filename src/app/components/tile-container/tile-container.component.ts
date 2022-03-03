@@ -20,16 +20,16 @@ export class TileContainerComponent implements OnInit {
   subscription!: Subscription;
 
   constructor(private uiService: UiService) {
-    this.subscription = this.uiService.onChangeGuessRow().subscribe(
+    /* this.subscription = this.uiService.onChangeGuessRow().subscribe(
       letter => this.setGuess(letter)
-      );
+      ); */
   }
 
   ngOnInit(): void {
   }
 
   setGuess(letter:string) {
-    this.guessRows[this.uiService.currentRow][this.uiService.currentTile] = letter;
+    //this.guessRows[this.uiService.currentRow][this.uiService.currentTile] = letter;
   }
 
 }
