@@ -91,8 +91,7 @@ export class KeyContainerComponent implements OnInit {
   }
 
   checkRow() {
-    const guess = this.uiService.currentGuess.join('');
-    this.checkRowGuess.emit(guess);
+    this.checkRowGuess.emit();
   }
 
 }
