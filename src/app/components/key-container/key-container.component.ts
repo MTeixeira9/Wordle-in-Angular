@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { UiService } from 'src/app/services/ui.service';
 
 @Component({
@@ -43,6 +43,19 @@ export class KeyContainerComponent implements OnInit {
   constructor(private uiService: UiService) { }
 
   ngOnInit(): void {
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if (event.keyCode >= 97 && event.keyCode <= 122) { // a-z
+      this.handleClick(event.key.toUpperCase())
+    }
+    else if (event.keyCode === 127) { // backspace/delete
+      this.handleClick('«')
+    }
+    else if (event.keyCode === 13) { // enter
+      this.handleClick(event.key.toUpperCase())
+    }
   }
 
   handleClick(letter:string) {

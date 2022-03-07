@@ -24,33 +24,35 @@ export class GameContainerComponent implements OnInit {
   verifyGuess() {
     const guess = this.uiService.currentGuess.join('');
     
-    this.wordleService.wordInDictionary(guess).subscribe(
-      (response) => {
-        if (response.result_msg === 'Entry word not found') {
-          this.messageContainer.showMessage('Word not in list');
-          return;
-        }
-        else {
-          this.flipTile();
-
-          if (this.wordle === guess) {
-            this.messageContainer.showMessage('Magnificient!');
-            this.uiService.setGameOver();
+    if (this.uiService.currentTile === 5) {
+      this.wordleService.wordInDictionary(guess).subscribe(
+        (response) => {
+          if (response.result_msg === 'Entry word not found') {
+            this.messageContainer.showMessage('Word not in list');
             return;
           }
           else {
-            if (this.uiService.currentRow >= 5) {
-              this.messageContainer.showMessage('Game Over');
+            this.flipTile();
+
+            if (this.wordle === guess) {
+              this.messageContainer.showMessage('Magnificient!');
               this.uiService.setGameOver();
               return;
             }
             else {
-              this.uiService.newGuess();
+              if (this.uiService.currentRow >= 5) {
+                this.messageContainer.showMessage('Game Over');
+                this.uiService.setGameOver();
+                return;
+              }
+              else {
+                this.uiService.newGuess();
+              }
             }
           }
         }
-      }
-    ); 
+      );
+    }
   }
 
   flipTile() {
