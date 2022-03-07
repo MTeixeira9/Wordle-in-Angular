@@ -12,7 +12,6 @@ export class GameContainerComponent implements OnInit {
 
   @ViewChild(MessageContainerComponent) messageContainer!: MessageContainerComponent;
   wordle!:string;
-  isGameOver:boolean = false;
 
   constructor(private uiService: UiService, private wordleService: WordleService) { }
 
@@ -24,25 +23,34 @@ export class GameContainerComponent implements OnInit {
 
   verifyGuess() {
     const guess = this.uiService.currentGuess.join('');
-    this.flipTile();
-
-    if (this.uiService.currentTile === 5) {
-      if (this.wordle === guess) {
-        this.messageContainer.showMessage('Magnificient!');
-        this.isGameOver = true;
-        return;
-      }
-      else {
-        if (this.uiService.currentRow >= 5) {
-          this.messageContainer.showMessage('Game Over');
-          this.isGameOver = true;
+    
+    this.wordleService.wordInDictionary(guess).subscribe(
+      (response) => {
+        if (response.result_msg === 'Entry word not found') {
+          this.messageContainer.showMessage('Word not in list');
           return;
         }
         else {
-          this.uiService.newGuess();
+          this.flipTile();
+
+          if (this.wordle === guess) {
+            this.messageContainer.showMessage('Magnificient!');
+            this.uiService.setGameOver();
+            return;
+          }
+          else {
+            if (this.uiService.currentRow >= 5) {
+              this.messageContainer.showMessage('Game Over');
+              this.uiService.setGameOver();
+              return;
+            }
+            else {
+              this.uiService.newGuess();
+            }
+          }
         }
       }
-    }    
+    ); 
   }
 
   flipTile() {

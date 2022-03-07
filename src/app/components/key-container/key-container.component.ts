@@ -46,17 +46,19 @@ export class KeyContainerComponent implements OnInit {
   }
 
   handleClick(letter:string) {
-    if (letter === '«') {
-      this.deleteLetter();
-      return;
-    }
+    if (!this.uiService.isGameOver) {
+      if (letter === '«') {
+        this.deleteLetter();
+        return;
+      }
 
-    if (letter === 'ENTER') {
-      this.checkRow();
-      return;
-    }
+      if (letter === 'ENTER') {
+        this.checkRow();
+        return;
+      }
 
-    this.addLetter(letter);
+      this.addLetter(letter);
+    }
   }
 
   addLetter(letter:string) {

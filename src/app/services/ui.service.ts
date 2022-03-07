@@ -11,6 +11,7 @@ export class UiService {
   private subject = new Subject<any>();
   guesses:string[][] = [];
   currentGuess:string[] = [];
+  isGameOver:boolean = false;
 
   constructor() { }
 
@@ -29,6 +30,10 @@ export class UiService {
     this.currentTile = 0;
     this.guesses.push(this.currentGuess);
     this.currentGuess = [];
+  }
+
+  setGameOver() {
+    this.isGameOver = true;
   }
 
   onChangeGuessRow(): Observable<any> {
