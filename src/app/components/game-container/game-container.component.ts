@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageContainerComponent } from '../message-container/message-container.component';
 import { UiService } from 'src/app/services/ui.service';
+import { WordleService } from 'src/app/services/wordle.service';
 
 @Component({
   selector: 'app-game-container',
@@ -10,12 +11,15 @@ import { UiService } from 'src/app/services/ui.service';
 export class GameContainerComponent implements OnInit {
 
   @ViewChild(MessageContainerComponent) messageContainer!: MessageContainerComponent;
-  wordle:string = "SUPER";
+  wordle!:string;
   isGameOver:boolean = false;
 
-  constructor(private uiService: UiService) { }
+  constructor(private uiService: UiService, private wordleService: WordleService) { }
 
   ngOnInit(): void {
+    this.wordleService.getWordle().subscribe(
+      (response) => this.wordle = response[0].toUpperCase()
+    );
   }
 
   verifyGuess() {

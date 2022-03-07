@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,14 @@ import { KeyContainerComponent } from './components/key-container/key-container.
 import { TitleContainerComponent } from './components/title-container/title-container.component';
 import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.component';
 import { TileElementComponent } from './components/tile-element/tile-element.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppConfigService } from './services/app-config.service';
+
+const appInitializerFn = (appConfig: AppConfigService) => {
+  return () => {
+      return appConfig.loadAppConfig();
+  }
+};
 
 @NgModule({
   declarations: [
@@ -24,9 +32,18 @@ import { TileElementComponent } from './components/tile-element/tile-element.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [AppConfigService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
